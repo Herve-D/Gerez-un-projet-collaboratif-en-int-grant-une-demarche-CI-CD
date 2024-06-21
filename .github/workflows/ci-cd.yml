@@ -22,7 +22,32 @@ jobs:
             - name: Run Jacoco tests
               run: mvn test jacoco:report
             - name: Upload Jacoco report
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                 name: jacoco-report
                 path: back/target/site/jacoco
+
+    Frontend_tests:
+        name: Frontend tests with coverage
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: front
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+            - name: Use Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '14'
+            - name: Install dependencies
+              run: |
+                  npm install
+                  npm ci
+            - name: Run tests
+              run: npm run test
+            - name: Upload coverage report
+              uses: actions/upload-artifact@v3
+              with:
+                  name: frontend-coverage-report
+                  path: front/coverage/bobapp/
