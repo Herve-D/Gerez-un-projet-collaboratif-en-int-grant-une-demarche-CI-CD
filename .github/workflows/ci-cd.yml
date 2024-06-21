@@ -1,9 +1,15 @@
 name: CI/CD pipeline
 
 on: [push]
+
 jobs:
-    build:
+
+    Backend_tests:
+        name: Backend tests with coverage
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: back
         steps:
             - name: Checkout repo
               uses: actions/checkout@v3
@@ -13,11 +19,9 @@ jobs:
                 java-version: '11'
             - name: Build with Maven
               run: mvn clean install
-              working-directory: back
             - name: Run Jacoco tests
               run: mvn test jacoco:report
-              working-directory: back
-            - name: Get Jacoco report
+            - name: Upload Jacoco report
               uses: actions/upload-artifact@v2
               with:
                 name: jacoco-report
