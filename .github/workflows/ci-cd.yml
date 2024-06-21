@@ -12,9 +12,9 @@ jobs:
                 working-directory: back
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
             - name: Set up JDK 11
-              uses: actions/setup-java@v3
+              uses: actions/setup-java@v4
               with:
                 java-version: '11'
                 distribution: 'temurin'
@@ -25,7 +25,7 @@ jobs:
             - name: Run Jacoco tests
               run: mvn test jacoco:report
             - name: Upload Jacoco report
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                 name: jacoco-report
                 path: back/target/site/jacoco
@@ -40,9 +40,9 @@ jobs:
                 working-directory: front
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
             - name: Use Node.js
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: '14'
             - name: Install dependencies
@@ -52,7 +52,7 @@ jobs:
             - name: Run tests
               run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
             - name: Upload coverage report
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: frontend-coverage-report
                   path: front/coverage/bobapp/
