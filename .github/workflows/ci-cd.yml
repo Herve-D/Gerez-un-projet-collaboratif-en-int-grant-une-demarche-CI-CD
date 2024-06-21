@@ -27,10 +27,8 @@ jobs:
             - name: Upload Jacoco report
               uses: actions/upload-artifact@v4
               with:
-                name: jacoco-report
+                name: backend-jacoco-report
                 path: back/target/site/jacoco
-            - name: Get coverage info
-              run: echo "Total coverage of ${{ steps.jacoco.outputs.coverage-overall }}"
 
     Frontend_tests:
         name: Frontend tests with coverage
@@ -46,9 +44,7 @@ jobs:
               with:
                   node-version: '14'
             - name: Install dependencies
-              run: |
-                  npm install
-                  npm ci
+              run: npm ci
             - name: Run tests
               run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
             - name: Upload coverage report
@@ -56,3 +52,37 @@ jobs:
               with:
                   name: frontend-coverage-report
                   path: front/coverage/bobapp/
+
+    SonarCloud_backend:
+        name: SonarCloud backend quality
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: back
+        steps:
+          - name: Checkout repo
+            uses: actions/checkout@v4
+            with:
+              fetch-depth: 0
+          - name: Set up JDK 11
+            uses: actions/setup-java@v4
+            with:
+              java-version: '11'
+              distribution: 'temurin'
+          - name: Cache SonarCloud packages
+            uses: actions/cache@v4
+            with:
+              path: ~/.sonar/cache
+              key: ${{ runner.os }}-sonar
+              restore-keys: ${{ runner.os }}-sonar
+          - name: Cache Maven packages
+            uses: actions/cache@v4
+            with:
+              path: ~/.m2
+              key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+              restore-keys: ${{ runner.os }}-m2
+          - name: Build and analyze
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Herve-D_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
