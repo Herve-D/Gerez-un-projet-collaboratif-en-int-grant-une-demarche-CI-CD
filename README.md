@@ -1,8 +1,10 @@
+![status](https://github.com/Herve-D/Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD/actions/workflows/ci-cd.yml/badge.svg)
+
 # BobApp
 
 Clone project:
 
-> git clone XXXXX
+> git clone [github.com/Herve-D/Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD](https://github.com/Herve-D/Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD.git)
 
 ## Front-end 
 
