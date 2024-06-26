@@ -118,7 +118,7 @@ jobs:
                   projectBaseDir: front
                   args: >
                       -Dsonar.projectKey=Herve-D_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
-                      -Dsonar.organization=Herve-D
+                      -Dsonar.organization=Hervé
                       -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
                       -Dsonar.qualitygate.wait=true
               env:
