@@ -103,11 +103,11 @@ jobs:
                 projectBaseDir: .
 
     Docker_build:
-        name: Build ${{ matrix.component }} Docker image and publish to Docker Hub
+        name: Build Docker image and publish to Docker Hub
         runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                component: [back, front]
+        # strategy:
+        #     matrix:
+        #         component: [back, front]
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
