@@ -127,10 +127,10 @@ jobs:
                   push: true
                   tags: ${{ secrets.DOCKER_USERNAME }}/bobapp-back:latest
 
-            - name: Build and push image of frontend
-              uses: docker/build-push-action@v6
-              with:
-                  context: ./front
-                  file: ./front/Dockerfile
-                  push: true
-                  tags: ${{ secrets.DOCKER_USERNAME }}/bobapp-front:latest
+            # - name: Build and push image of frontend
+            #   uses: docker/build-push-action@v6
+            #   with:
+            #       context: ./front
+            #       file: ./front/Dockerfile
+            #       push: true
+            #       tags: ${{ secrets.DOCKER_USERNAME }}/bobapp-front:latest
